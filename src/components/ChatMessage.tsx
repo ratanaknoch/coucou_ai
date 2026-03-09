@@ -5,10 +5,10 @@ import { MarkdownRenderer } from './MarkdownRenderer';
 import { AgentActionBar } from './AgentActionBar';
 
 const modeConfig: Record<ActionType, { label: string; icon: typeof Code2; color: string }> = {
-  code:    { label: 'Writing Code',   icon: Code2,     color: 'var(--accent)' },
-  debug:   { label: 'Debugging',      icon: Bug,       color: 'var(--red)' },
-  suggest: { label: 'Suggesting',     icon: Lightbulb, color: 'var(--yellow)' },
-  write:   { label: 'Writing Docs',   icon: FileText,  color: 'var(--teal)' },
+  code: { label: 'Writing Code', icon: Code2, color: 'var(--accent)' },
+  debug: { label: 'Debugging', icon: Bug, color: 'var(--red)' },
+  suggest: { label: 'Suggesting', icon: Lightbulb, color: 'var(--yellow)' },
+  write: { label: 'Writing Docs', icon: FileText, color: 'var(--teal)' },
 };
 
 function ThinkingDots() {
@@ -116,7 +116,7 @@ export function ChatMessage({ message, onUpdateAction }: ChatMessageProps) {
         </div>
 
         <span style={{ fontSize: 11, fontWeight: 600, color: 'var(--text-3)', letterSpacing: '0.03em' }}>
-          BLAST AI
+          COUCOU AI
         </span>
 
         {mode && ModeIcon && (

@@ -17,10 +17,10 @@ interface ChatPanelProps {
 
 function WelcomeScreen({ onSend }: { onSend: (s: string) => Promise<void> }) {
   const suggestions = [
-    { icon: Bug,       text: 'Find bugs in my code',        prompt: '[DEBUG] Review this code and identify any bugs, edge cases, or potential issues:\n\n' },
-    { icon: Code2,     text: 'Write a React component',      prompt: '[CODE] Write a modern React TypeScript component for:\n\n' },
-    { icon: Lightbulb, text: 'Explain this algorithm',       prompt: '[SUGGEST] Explain how this algorithm works step by step:\n\n' },
-    { icon: Zap,       text: 'Optimize performance',         prompt: '[SUGGEST] Analyze and suggest performance optimizations for:\n\n' },
+    { icon: Bug, text: 'Find bugs in my code', prompt: '[DEBUG] Review this code and identify any bugs, edge cases, or potential issues:\n\n' },
+    { icon: Code2, text: 'Write a React component', prompt: '[CODE] Write a modern React TypeScript component for:\n\n' },
+    { icon: Lightbulb, text: 'Explain this algorithm', prompt: '[SUGGEST] Explain how this algorithm works step by step:\n\n' },
+    { icon: Zap, text: 'Optimize performance', prompt: '[SUGGEST] Analyze and suggest performance optimizations for:\n\n' },
   ];
 
   return (
@@ -41,7 +41,7 @@ function WelcomeScreen({ onSend }: { onSend: (s: string) => Promise<void> }) {
         </div>
         <div style={{ textAlign: 'center' }}>
           <p style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-1)', letterSpacing: '-0.01em' }}>
-            BLAST AI
+            COUCOU AI
           </p>
           <p style={{ fontSize: 11, color: 'var(--text-3)', marginTop: 2 }}>
             Your intelligent coding agent

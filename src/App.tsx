@@ -55,7 +55,7 @@ export default function App() {
             <Sparkles size={11} style={{ color: 'var(--accent)' }} />
           </div>
           <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-1)', letterSpacing: '-0.01em' }}>
-            BLAST AI
+            COUCOU AI
           </span>
         </div>
 

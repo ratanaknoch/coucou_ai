@@ -242,8 +242,8 @@ export function SettingsPanel({ settings, onUpdate }: { settings: Settings; onUp
                   transition: 'all 0.15s',
                   position: 'relative',
                 }}
-                onMouseEnter={e => { if (!active) { e.currentTarget.style.borderColor = 'var(--border-mid)'; e.currentTarget.style.background = 'var(--bg-hover)'; }}}
-                onMouseLeave={e => { if (!active) { e.currentTarget.style.borderColor = 'var(--border-dim)'; e.currentTarget.style.background = 'var(--bg-elevated)'; }}}
+                onMouseEnter={e => { if (!active) { e.currentTarget.style.borderColor = 'var(--border-mid)'; e.currentTarget.style.background = 'var(--bg-hover)'; } }}
+                onMouseLeave={e => { if (!active) { e.currentTarget.style.borderColor = 'var(--border-dim)'; e.currentTarget.style.background = 'var(--bg-elevated)'; } }}
               >
                 <div style={{
                   width: 30, height: 30, borderRadius: 7,
@@ -424,17 +424,17 @@ export function SettingsPanel({ settings, onUpdate }: { settings: Settings; onUp
             { k: 'Mode', v: isLocal ? 'Local' : 'Cloud', color: isLocal ? 'var(--teal)' : 'var(--accent)' },
             ...(isLocal
               ? [
-                  { k: 'Endpoint', v: settings.localEndpoint || '—', mono: true },
-                  { k: 'Model', v: settings.localModelName || '—', mono: true, color: '#dcdcaa' },
-                ]
+                { k: 'Endpoint', v: settings.localEndpoint || '—', mono: true },
+                { k: 'Model', v: settings.localModelName || '—', mono: true, color: '#dcdcaa' },
+              ]
               : [
-                  {
-                    k: 'API Key',
-                    v: (isGemini ? settings.geminiApiKey : settings.deepseekApiKey) ? '●●●●●●●●' : 'Not set',
-                    mono: true,
-                    color: (isGemini ? settings.geminiApiKey : settings.deepseekApiKey) ? 'var(--green)' : 'var(--red)',
-                  },
-                ]),
+                {
+                  k: 'API Key',
+                  v: (isGemini ? settings.geminiApiKey : settings.deepseekApiKey) ? '●●●●●●●●' : 'Not set',
+                  mono: true,
+                  color: (isGemini ? settings.geminiApiKey : settings.deepseekApiKey) ? 'var(--green)' : 'var(--red)',
+                },
+              ]),
           ].map(({ k, v, mono, color }) => (
             <div key={k} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
               <span style={{ fontSize: 10, color: 'var(--text-4)' }}>{k}</span>
@@ -456,7 +456,7 @@ export function SettingsPanel({ settings, onUpdate }: { settings: Settings; onUp
 
       {/* Footer */}
       <div style={{ textAlign: 'center', paddingTop: 4 }}>
-        <p style={{ fontSize: 10, color: 'var(--text-4)' }}>BLAST AI v1.0.0</p>
+        <p style={{ fontSize: 10, color: 'var(--text-4)' }}>COUCOU AI v1.0.0</p>
         <p style={{ fontSize: 10, color: 'var(--text-4)', marginTop: 2 }}>VS Code Extension Sidebar</p>
       </div>
     </div>

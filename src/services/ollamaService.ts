@@ -1,6 +1,6 @@
 import type { Message } from '../types';
 
-const SYSTEM_INSTRUCTION = `You are BLAST AI, an expert coding assistant embedded in VS Code.
+const SYSTEM_INSTRUCTION = `You are COUCOU AI, an expert coding assistant embedded in VS Code.
 You help developers write, debug, refactor, and understand code.
 When providing code solutions, clearly indicate what type of action you're performing:
 - [CODE] when writing new code

@@ -3,10 +3,10 @@ import { Send, Square, Zap, Code2, Bug, FileText, Lightbulb, Mic } from 'lucide-
 import { AnimatePresence, motion } from 'motion/react';
 
 const QUICK_ACTIONS = [
-  { icon: Bug,      label: 'Find bugs',     prompt: '[DEBUG] Find and explain any bugs in this code:' },
-  { icon: Code2,    label: 'Refactor',      prompt: '[CODE] Refactor this code to be cleaner and more efficient:' },
-  { icon: FileText, label: 'Document',      prompt: '[WRITE] Write documentation and JSDoc comments for:' },
-  { icon: Lightbulb,label: 'Optimize',      prompt: '[SUGGEST] Suggest performance optimizations for:' },
+  { icon: Bug, label: 'Find bugs', prompt: '[DEBUG] Find and explain any bugs in this code:' },
+  { icon: Code2, label: 'Refactor', prompt: '[CODE] Refactor this code to be cleaner and more efficient:' },
+  { icon: FileText, label: 'Document', prompt: '[WRITE] Write documentation and JSDoc comments for:' },
+  { icon: Lightbulb, label: 'Optimize', prompt: '[SUGGEST] Suggest performance optimizations for:' },
 ];
 
 interface ChatInputProps {
@@ -123,7 +123,7 @@ export function ChatInput({ onSend, onStop, isLoading, disabled }: ChatInputProp
         }}>
           <Zap size={11} style={{ color: isLoading ? 'var(--accent)' : 'var(--text-4)', flexShrink: 0, transition: 'color 0.2s' }} />
           <span style={{ fontSize: 10, color: 'var(--text-4)', fontWeight: 500 }}>
-            {isLoading ? 'Generating...' : 'Ask BLAST AI'}
+            {isLoading ? 'Generating...' : 'Ask COUCOU AI'}
           </span>
         </div>
 

@@ -4,7 +4,7 @@ import type { Message } from '../types';
 const MODEL_NAME = import.meta.env.VITE_CLOUD_MODEL_NAME || 'gemini-2.0-flash';
 const SYSTEM_INSTRUCTION =
   import.meta.env.VITE_CLOUD_SYSTEM_INSTRUCTION ||
-  `You are BLAST AI, an expert coding assistant embedded in VS Code. 
+  `You are COUCOU AI, an expert coding assistant embedded in VS Code. 
 You help developers write, debug, refactor, and understand code.
 When providing code solutions, clearly indicate what type of action you're performing:
 - [CODE] when writing new code

@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import type { Settings } from '../types';
 
-const STORAGE_KEY = 'blast-ai-settings';
+const STORAGE_KEY = 'COUCOU-ai-settings';
 
 function loadSettings(): Settings {
   try {
