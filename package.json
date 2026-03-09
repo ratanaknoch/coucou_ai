@@ -1,0 +1,73 @@
+{
+  "name": "react-vite-tailwind",
+  "publisher": "USER",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "main": "./out/extension.cjs",
+  "activationEvents": [],
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "coucou-ai-sidebar",
+          "title": "Coucou AI",
+          "icon": "assets/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "coucou-ai-sidebar": [
+        {
+          "type": "webview",
+          "id": "coucou-ai.sidebarView",
+          "name": "Coucou AI",
+          "icon": "assets/icon.svg"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "coucou-ai.start",
+        "title": "Start Coucou AI",
+        "icon": "$(sparkle)"
+      }
+    ]
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "vscode:prepublish": "npm run package",
+    "compile": "esbuild ./ext-src/extension.ts --bundle --outfile=out/extension.cjs --external:vscode --format=cjs --platform=node",
+    "watch": "npm run build && esbuild ./ext-src/extension.ts --bundle --outfile=out/extension.cjs --external:vscode --format=cjs --platform=node --watch",
+    "package": "npm run build && npm run compile"
+  },
+  "dependencies": {
+    "@google/genai": "^1.44.0",
+    "clsx": "2.1.1",
+    "lucide-react": "^0.577.0",
+    "motion": "^12.35.1",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-markdown": "^10.1.0",
+    "tailwind-merge": "3.4.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "4.1.17",
+    "@tsconfig/node18": "^18.2.6",
+    "@types/node": "^22.0.0",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
+    "@types/vscode": "^1.109.0",
+    "@vitejs/plugin-react": "5.1.1",
+    "esbuild": "^0.27.3",
+    "tailwindcss": "4.1.17",
+    "typescript": "^5.9.3",
+    "vite": "7.2.4",
+    "vite-plugin-singlefile": "2.3.0"
+  }
+}
