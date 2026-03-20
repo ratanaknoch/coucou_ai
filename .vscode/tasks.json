@@ -4,7 +4,17 @@
     {
       "type": "npm",
       "script": "watch",
-      "problemMatcher": "$tsc-watch",
+      "problemMatcher": {
+        "owner": "custom",
+        "pattern": {
+          "regexp": "^$"
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "react-vite-tailwind",
+          "endsPattern": "\\[watch\\] build finished"
+        }
+      },
       "isBackground": true,
       "presentation": {
         "reveal": "never"
@@ -13,6 +23,14 @@
         "kind": "build",
         "isDefault": true
       }
+    },
+    {
+      "type": "npm",
+      "script": "package",
+      "label": "npm: package",
+      "detail": "build and compile the extension",
+      "group": "build",
+      "problemMatcher": []
     }
   ]
 }

@@ -6,8 +6,15 @@
       "type": "extensionHost",
       "request": "launch",
       "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
-      "outFiles": ["${workspaceFolder}/out/**/*.js"],
-      "preLaunchTask": "npm: watch"
+      "outFiles": ["${workspaceFolder}/out/**/*.js", "${workspaceFolder}/out/**/*.cjs"],
+      "preLaunchTask": "npm: package"
+    },
+    {
+      "name": "Diagnostic Launch (No Build)",
+      "type": "extensionHost",
+      "request": "launch",
+      "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
+      "outFiles": ["${workspaceFolder}/out/**/*.js", "${workspaceFolder}/out/**/*.cjs"]
     }
   ]
 }
