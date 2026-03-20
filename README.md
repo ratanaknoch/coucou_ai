@@ -1,6 +1,6 @@
 # Coucou AI
 
-Coucou AI is a modern VS Code extension that brings powerful AI assistance directly into your sidebar. It features a premium, theme-aware user interface built with React and Tailwind CSS, supporting both cloud-based and local AI models.
+Coucou AI is an extension that brings powerful AI assistance directly into your sidebar. It features a premium, theme-aware user interface built with React and Tailwind CSS, supporting both cloud-based and local AI models.
 
 ## Features
 
