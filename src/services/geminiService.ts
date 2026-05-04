@@ -19,14 +19,11 @@ export async function* streamGeminiResponse(
   apiKey: string
 ): AsyncGenerator<string> {
   const ai = new GoogleGenAI({ apiKey });
-
   const history = messages.slice(0, -1).map((m) => ({
     role: m.role === 'user' ? 'user' : 'model',
     parts: [{ text: m.content }],
   }));
-
   const lastMessage = messages[messages.length - 1];
-
   const chat = ai.chats.create({
     model: MODEL_NAME,
     config: { systemInstruction: SYSTEM_INSTRUCTION },
