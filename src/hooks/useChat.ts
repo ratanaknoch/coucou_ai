@@ -1,6 +1,7 @@
 import { useState, useCallback, useRef } from 'react';
 import type { Message, Settings, CodeAction, ActionType } from '../types';
 import { streamAIResponse } from '../services/aiService';
+import { vscode } from '../utils/vscode';
 
 function detectAgentMode(content: string): ActionType | undefined {
   if (content.includes('[DEBUG]')) return 'debug';
@@ -68,8 +69,23 @@ export function useChat(settings: Settings) {
       let fullContent = '';
 
       try {
-        const allMessages = [...messages, userMessage];
-        const stream = streamAIResponse(allMessages, settings);
+        // Fetch the active file context from VS Code before generating
+        const fileContext = await vscode.getActiveFileContext();
+        let currentMessages = [...messages, userMessage];
+
+        // If we have an active file, create a contextual message to send to the AI
+        if (fileContext && fileContext.content) {
+          const contextMsg: Message = {
+            id: `ctx-${Date.now()}`,
+            role: 'system',
+            content: `The user is currently working on a file named "${fileContext.fileName}" (Language: ${fileContext.languageId}). Here is the current content of the file:\n\n\`\`\`${fileContext.languageId}\n${fileContext.content}\n\`\`\`\n\nPlease use this context to answer their question.`,
+            timestamp: new Date()
+          };
+          // Insert the context right before the user's latest message so it's fresh
+          currentMessages = [...messages, contextMsg, userMessage];
+        }
+
+        const stream = streamAIResponse(currentMessages, settings);
 
         for await (const chunk of stream) {
           if (abortRef.current) break;

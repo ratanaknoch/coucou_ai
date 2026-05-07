@@ -38,6 +38,51 @@ class CoucouSidebarProvider implements vscode.WebviewViewProvider {
     }
 
     webviewView.webview.html = htmlContent;
+
+    // Handle messages from the webview
+    webviewView.webview.onDidReceiveMessage(
+      message => {
+        switch (message.command) {
+          case 'getActiveFile':
+            const editor = vscode.window.activeTextEditor;
+            if (editor) {
+              const document = editor.document;
+              const text = document.getText();
+              const fileName = path.basename(document.fileName);
+              const languageId = document.languageId;
+              
+              webviewView.webview.postMessage({
+                command: 'activeFileContext',
+                data: {
+                  fileName,
+                  languageId,
+                  content: text
+                }
+              });
+            } else {
+              webviewView.webview.postMessage({
+                command: 'activeFileContext',
+                data: null
+              });
+            }
+            return;
+          case 'applyCode':
+            const activeEditorForApply = vscode.window.activeTextEditor;
+            if (activeEditorForApply) {
+              activeEditorForApply.edit(editBuilder => {
+                if (!activeEditorForApply.selection.isEmpty) {
+                  editBuilder.replace(activeEditorForApply.selection, message.code);
+                } else {
+                  editBuilder.insert(activeEditorForApply.selection.active, message.code);
+                }
+              });
+            }
+            return;
+        }
+      },
+      undefined,
+      this.context.subscriptions
+    );
   }
 }
 

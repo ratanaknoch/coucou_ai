@@ -67,6 +67,48 @@ var CoucouSidebarProvider = class {
       htmlContent = "<html><body><h1>Error: Build not found</h1></body></html>";
     }
     webviewView.webview.html = htmlContent;
+    webviewView.webview.onDidReceiveMessage(
+      (message) => {
+        switch (message.command) {
+          case "getActiveFile":
+            const editor = vscode.window.activeTextEditor;
+            if (editor) {
+              const document = editor.document;
+              const text = document.getText();
+              const fileName = path.basename(document.fileName);
+              const languageId = document.languageId;
+              webviewView.webview.postMessage({
+                command: "activeFileContext",
+                data: {
+                  fileName,
+                  languageId,
+                  content: text
+                }
+              });
+            } else {
+              webviewView.webview.postMessage({
+                command: "activeFileContext",
+                data: null
+              });
+            }
+            return;
+          case "applyCode":
+            const activeEditorForApply = vscode.window.activeTextEditor;
+            if (activeEditorForApply) {
+              activeEditorForApply.edit((editBuilder) => {
+                if (!activeEditorForApply.selection.isEmpty) {
+                  editBuilder.replace(activeEditorForApply.selection, message.code);
+                } else {
+                  editBuilder.insert(activeEditorForApply.selection.active, message.code);
+                }
+              });
+            }
+            return;
+        }
+      },
+      void 0,
+      this.context.subscriptions
+    );
   }
 };
 function deactivate() {

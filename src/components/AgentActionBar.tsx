@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Check, X, Copy, CheckCheck, ChevronDown, ChevronUp, GitMerge } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import type { CodeAction } from '../types';
+import { vscode } from '../utils/vscode';
 
 function ActionCard({
   action,
@@ -266,7 +267,10 @@ export function AgentActionBar({ actions, messageId, onUpdateStatus }: AgentActi
           </span>
           <div style={{ display: 'flex', gap: 8 }}>
             <button
-              onClick={() => pending.forEach(a => onUpdateStatus(messageId, a.id, 'accepted'))}
+              onClick={() => pending.forEach(a => {
+                vscode.applyCode(a.code);
+                onUpdateStatus(messageId, a.id, 'accepted');
+              })}
               style={{ fontSize: 10, color: 'var(--green)', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600 }}
             >
               Accept all
@@ -285,7 +289,10 @@ export function AgentActionBar({ actions, messageId, onUpdateStatus }: AgentActi
         <ActionCard
           key={action.id}
           action={action}
-          onAccept={id => onUpdateStatus(messageId, id, 'accepted')}
+          onAccept={id => {
+            vscode.applyCode(action.code);
+            onUpdateStatus(messageId, id, 'accepted');
+          }}
           onReject={id => onUpdateStatus(messageId, id, 'rejected')}
         />
       ))}
