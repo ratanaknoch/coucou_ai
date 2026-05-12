@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { MessageSquare, Settings as SettingsIcon, Sparkles, Zap } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
+import coucouLogo from '../assets/coucou.png';
 import { ChatPanel } from './components/ChatPanel';
 import { SettingsPanel } from './components/SettingsPanel';
 import { useChat } from './hooks/useChat';
@@ -52,7 +53,7 @@ export default function App() {
             border: '1px solid rgba(14,122,254,0.35)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
           }}>
-            <Sparkles size={11} style={{ color: 'var(--accent)' }} />
+            <img src={coucouLogo} alt="Coucou Logo" style={{ width: 14, height: 14, objectFit: 'contain' }} />
           </div>
           <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-1)', letterSpacing: '-0.01em' }}>
             COUCOU AI

@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Sparkles, Trash2, Zap, Code2, Bug, Lightbulb } from 'lucide-react';
+import coucouLogo from '../../assets/coucou.png';
 import type { Message } from '../types';
 import { ChatMessage } from './ChatMessage';
 import { ChatInput } from './ChatInput';
@@ -37,7 +38,7 @@ function WelcomeScreen({ onSend }: { onSend: (s: string) => Promise<void> }) {
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           boxShadow: '0 0 20px rgba(14,122,254,0.1)',
         }}>
-          <Sparkles size={20} style={{ color: 'var(--accent)' }} />
+          <img src={coucouLogo} alt="Coucou Logo" style={{ width: 28, height: 28, objectFit: 'contain' }} />
         </div>
         <div style={{ textAlign: 'center' }}>
           <p style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-1)', letterSpacing: '-0.01em' }}>

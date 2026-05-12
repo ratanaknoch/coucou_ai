@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { Sparkles, Bug, Code2, FileText, Lightbulb, AlertTriangle } from 'lucide-react';
+import coucouLogo from '../../assets/coucou.png';
 import type { Message, ActionType } from '../types';
 import { MarkdownRenderer } from './MarkdownRenderer';
 import { AgentActionBar } from './AgentActionBar';

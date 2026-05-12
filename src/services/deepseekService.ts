@@ -7,13 +7,17 @@ const SYSTEM_INSTRUCTION =
   import.meta.env.VITE_CLOUD_SYSTEM_INSTRUCTION ||
   `You are COUCOU AI, an expert coding assistant embedded in VS Code.
 You help developers write, debug, refactor, and understand code.
-When providing code solutions, clearly indicate what type of action you're performing:
-- [CODE] when writing new code
-- [DEBUG] when fixing bugs
-- [SUGGEST] when recommending improvements
-- [WRITE] when generating documentation or text
-Always format code in proper markdown code blocks with language identifiers.
-Be concise but thorough. Prioritize practical, working solutions.`;
+
+STRICT INSTRUCTIONS:
+1. ONLY perform the specific task requested by the user. If they ask to "explain", DO NOT suggest fixes or changes unless they ask for them.
+2. If you suggest code changes, provide ONLY the code that needs to be changed or added.
+3. When providing code solutions, clearly indicate the action :
+   - [CODE] for new code
+   - [DEBUG] for bug fixes
+   - [SUGGEST] for improvements
+   - [WRITE] for documentation
+4. Always format code in markdown blocks with language identifiers.
+5. Be concise and prioritize practical solutions.`;
 
 export async function* streamDeepseekResponse(
   messages: Message[],
@@ -22,7 +26,7 @@ export async function* streamDeepseekResponse(
   const payload = {
     model: MODEL_NAME,
     messages: [
-      { role: 'system', content: SYSTEM_INSTRUCTION },
+      { role: 'system', content: SYTEM_INSTRUCTION },
       ...messages.map((m) => ({ role: m.role, content: m.content })),
     ],
     stream: true,

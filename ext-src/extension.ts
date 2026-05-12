@@ -70,11 +70,7 @@ class CoucouSidebarProvider implements vscode.WebviewViewProvider {
             const activeEditorForApply = vscode.window.activeTextEditor;
             if (activeEditorForApply) {
               activeEditorForApply.edit(editBuilder => {
-                if (!activeEditorForApply.selection.isEmpty) {
-                  editBuilder.replace(activeEditorForApply.selection, message.code);
-                } else {
-                  editBuilder.insert(activeEditorForApply.selection.active, message.code);
-                }
+                editBuilder.replace(activeEditorForApply.selection, message.code);
               });
             }
             return;
@@ -87,3 +83,4 @@ class CoucouSidebarProvider implements vscode.WebviewViewProvider {
 }
 
 export function deactivate() {}
+
