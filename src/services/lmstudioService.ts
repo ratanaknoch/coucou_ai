@@ -6,7 +6,7 @@ You help developers write, debug, refactor, and understand code.
 STRICT INSTRUCTIONS:
 1. ONLY perform the specific task requested by the user. If they ask to "explain", DO NOT suggest fixes or changes unless they ask for them.
 2. If you suggest code changes, provide ONLY the code that needs to be changed or added.
-3. When providing code solutions, clearly indicate the action*:
+3. When providing code solutions, clearly indicate the action:
    - [CODE] for new code
    - [DEBUG] for bug fixes
    - [SUGGEST] for improvements
@@ -24,30 +24,46 @@ export async function* streamLMStudioResponse(
   const payload = {
     model: modelName,
     messages: [
-      { role: 'system', content: SYSUSWÒS”Õ•PÕSÓˆKBˆ‹‹›Y\ÜØYÙ\Ë›X\
+      { role: 'system', content: SYSTEM_INSTRUCTION },
+      ...messages.map((m) => ({ role: m.role, content: m.content })),
+    ],
+    stream: true,
+  };
 
-JHOˆ
-È›ÛNˆKœ›ÛKÛÛ[ˆK˜ÛÛ[JJKBˆKBˆİ™X[NˆYKBˆNÃBƒBˆÛÛœİ™\ÜÛœÙHH]ØZ]™]Ú
-\›ÃBˆY]Ùˆ	ÔÔÕ	ËBˆXY\œÎˆÈ	ĞÛÛ[U\IÎˆ	Ø\XØ][Û‹ÚœÛÛ‰ÈKBˆ›ÙNˆ”ÓÓ‹œİš[™ÚYJ^[ØY
-KBˆJNÃBƒBˆYˆ
-\™\ÜÛœÙK›ÚÊHÃBˆÛÛœİ\œˆH]ØZ]™\ÜÛœÙK^
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
 
-NÃBˆ›İÈ™]È\œ›ÜŠWÔİY[È\œ›Üˆ	Ü™\ÜÛœÙKœİ]\ßHH	Ù\œŸX
-NÃBˆCBƒBˆÛÛœİ™XY\ˆH™\ÜÛœÙK˜›ÙHK™Ù]™XY\Š
-NÃBˆÛÛœİXÛÙ\ˆH™]È^XÛÙ\Š
-NÃBˆ]Y™™\ˆH	ÉÎÃBƒBˆÚ[H
-YJHÃBˆÛÛœİÈÛ™K˜[YHHH]ØZ]™XY\‹œ™XY
+  if (!response.ok) {
+    const err = await response.text();
+    throw new Error(`LM Studio error: ${response.status} - ${err}`);
+  }
 
-NÃBˆYˆ
-Û™JHœ™XZÎÃBˆY™™\ˆ
-ÏHXÛÙ\‹™XÛÙJ˜[YKÈİ™X[NˆYHJNÃBˆÛÛœİ[™\ÈHY™™\‹œÜ]
-	×‰ÊNÃBˆY™™\ˆH[™\ËœÜ
+  const reader = response.body!.getReader();
+  const decoder = new TextDecoder();
+  let buffer = '';
 
-H	ÉÎÃBƒBˆ›Üˆ
-ÛÛœİ[™HÙˆ[™\ÊHÃBˆÛÛœİš[[YYH[™Kš[J
-NÃBˆYˆ
-]š[[YYš[[YYOOH	Ù]NˆÑÓ‘WIÊHÛÛ[YNÃBˆYˆ
-š[[YYœİ\ÕÚ]
-	Ù]Nˆ	ÊJHÃBˆHÃBˆÛÛœİœÛÛˆH”ÓÓ‹œ\œÙJš[[YYœÛXÙJŠJNÃBˆÛÛÛÛ[HœÛÛ‹˜ÚÚXÙ\ÏË–ÌOË™[OË˜ÛÛ[ÃBˆYˆ
-ÛÛ[
-HZY[ÛÛ[ÃBˆHØ]ÚÃBˆËÈYÛ›Ü™CBˆCBˆCBˆCBˆCBŸCB
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    buffer += decoder.decode(value, { stream: true });
+    const lines = buffer.split('\n');
+    buffer = lines.pop() || '';
+
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed === 'data: [DONE]') continue;
+      if (trimmed.startsWith('data: ')) {
+        try {
+          const json = JSON.parse(trimmed.slice(6));
+          const content = json.choices?.[0]?.delta?.content;
+          if (content) yield content;
+        } catch {
+          // ignore
+        }
+      }
+    }
+  }
+}

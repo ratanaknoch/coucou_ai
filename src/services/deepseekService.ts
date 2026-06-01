@@ -26,7 +26,7 @@ export async function* streamDeepseekResponse(
   const payload = {
     model: MODEL_NAME,
     messages: [
-      { role: 'system', content: SYTEM_INSTRUCTION },
+      { role: 'system', content: SYSTEM_INSTRUCTION },
       ...messages.map((m) => ({ role: m.role, content: m.content })),
     ],
     stream: true,

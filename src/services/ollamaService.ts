@@ -24,7 +24,7 @@ export async function* streamOllamaResponse(
   const payload = {
     model: modelName,
     messages: [
-      { role: 'system', content: SYTEM_INSTRUCTION },
+      { role: 'system', content: SYSTEM_INSTRUCTION },
       ...messages.map((m) => ({ role: m.role, content: m.content })),
     ],
     stream: true,
@@ -45,7 +45,7 @@ export async function* streamOllamaResponse(
   const decoder = new TextDecoder();
   let buffer = '';
 
-  while (text) {
+  while (true) {
     const { done, value } = await reader.read();
     if (done) break;
     buffer += decoder.decode(value, { stream: true });
@@ -56,7 +56,7 @@ export async function* streamOllamaResponse(
       if (!line.trim()) continue;
       try {
         const json = JSON.parse(line);
-        content = json.message?.content;
+        const content = json.message?.content;
         if (content) yield content;
         if (json.done) return;
       } catch {
